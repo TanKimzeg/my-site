@@ -17,10 +17,12 @@ import RepositoryCard from "@/components/mdx/RepositoryCard.astro";
     <section class="py-4">
       <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
         <Icon name="lucide:star" class="w-6 h-6 text-primary" />
-        <span>Featured Projects</span>
+        <!-- <span>Featured Projects</span> -->
+         <span>GitHub Status</span>
       </h2>
 
-      <GitHubStats username="EveSunMaple" repositoryName="Frosti" showLanguages={true} showContributors={true} />
+      <GitHubStats username="TanKimzeg" showLanguages={false} showCommitGraph={true} />
+      <!--<GitHubStats username="EveSunMaple" repositoryName="Frosti" showLanguages={true} showContributors={true} /> -->
     </section>
 
     <!-- My Repositories -->
@@ -31,17 +33,22 @@ import RepositoryCard from "@/components/mdx/RepositoryCard.astro";
       </h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <RepositoryCard repo="EveSunMaple/Frosti" isPinned={true} />
-        <RepositoryCard repo="EveSunMaple/SaroProck" isPinned={true} />
-        <RepositoryCard repo="EveSunMaple/astion-static" />
-        <RepositoryCard repo="EveSunMaple/astro-update-theme" />
-        <RepositoryCard repo="EveSunMaple/Word-testing-application" />
-        <RepositoryCard repo="EveSunMaple/Smooth-Snake-Game" />
+        <RepositoryCard repo="TanKimzeg/compiler" 
+          image="https://raw.githubusercontent.com/TanKimzeg/compiler/main/assets/passed.png" 
+          isPinned={true} 
+        />
+        <RepositoryCard repo="TanKimzeg/PP4mat"/>
+        <RepositoryCard repo="TanKimzeg/uno" 
+          image="https://raw.githubusercontent.com/TanKimzeg/uno/main/.github/image.png" 
+        />
+        <RepositoryCard repo="TanKimzeg/url-submitter" />
+        <RepositoryCard repo="TanKimzeg/DES" />
+        <RepositoryCard repo="TanKimzeg/CS-APP" />
       </div>
 
       <div class="flex justify-center mt-10">
         <a
-          href="https://github.com/EveSunMaple?tab=repositories"
+          href="https://github.com/TanKimzeg?tab=repositories"
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-outline gap-2"
@@ -64,19 +71,9 @@ import RepositoryCard from "@/components/mdx/RepositoryCard.astro";
           {
             [
               {
-                project: "Astro",
-                description: "Contributed to performance improvements and bug fixes",
-                url: "https://github.com/withastro/astro",
-              },
-              {
-                project: "TailwindCSS",
-                description: "Added new utility classes and documentation improvements",
-                url: "https://github.com/tailwindlabs/tailwindcss",
-              },
-              {
-                project: "DaisyUI",
-                description: "Contributed component enhancements and theme improvements",
-                url: "https://github.com/saadeghi/daisyui",
+                project: "Waline",
+                description: "Contributed to bug fixes",
+                url: "https://github.com/walinejs/waline",
               },
             ].map((contrib) => (
               <li class="flex items-start gap-4">
