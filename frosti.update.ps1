@@ -85,91 +85,94 @@ if ($LASTEXITCODE -ne 0) {
 }
 Write-Green $MSG_STEP1_CLONE_SUCCESS
 
-# Step 2: Copy files using robocopy (Windows equivalent of rsync)
+# Step 2: Copy files (equivalent to rsync)
 Write-Blue "`n$MSG_STEP2_RSYNC"
 
-# Read .updateignore file if it exists
-$excludePatterns = @()
-$updateIgnoreFile = ".updateignore"
-if (Test-Path $updateIgnoreFile) {
-    $excludePatterns = Get-Content $updateIgnoreFile | Where-Object { $_ -and !$_.StartsWith("#") }
-}
-
-# Function to check if a path should be excluded
+# Function to check if a path should be excluded based on .updateignore
 function ShouldExclude($path) {
-    foreach ($pattern in $excludePatterns) {
-        if ($path -like $pattern) {
-            return $true
+    $updateIgnoreFile = ".updateignore"
+    if (Test-Path $updateIgnoreFile) {
+        $excludePatterns = Get-Content $updateIgnoreFile | Where-Object { $_ -and !$_.StartsWith("#") -and $_.Trim() -ne "" }
+        foreach ($pattern in $excludePatterns) {
+            # Convert forward slashes to backslashes for Windows
+            $pattern = $pattern.Replace("/", "\").TrimEnd("\")
+            # Handle different pattern types
+            if ($pattern.EndsWith("*") -or $pattern.Contains("*")) {
+                if ($path -like $pattern) { return $true }
+            } else {
+                if ($path -eq $pattern -or $path.StartsWith("$pattern\")) { return $true }
+            }
         }
     }
     return $false
 }
 
 # Copy files recursively while respecting .updateignore
-function Copy-WithExclusion($source, $destination) {
-    try {
-        $sourceItems = Get-ChildItem -Path $source -Recurse -Force
-        foreach ($item in $sourceItems) {
-            $relativePath = $item.FullName.Substring($source.Length + 1)
-            $destPath = Join-Path $destination $relativePath
-            
-            if (!(ShouldExclude $relativePath)) {
-                if ($item.PSIsContainer) {
-                    if (!(Test-Path $destPath)) {
-                        New-Item -Path $destPath -ItemType Directory -Force | Out-Null
-                    }
-                } else {
-                    $destDir = Split-Path $destPath -Parent
-                    if (!(Test-Path $destDir)) {
-                        New-Item -Path $destDir -ItemType Directory -Force | Out-Null
-                    }
-                    Copy-Item -Path $item.FullName -Destination $destPath -Force
+try {
+    $sourceItems = Get-ChildItem -Path $TEMP_DIR -Recurse -Force
+    foreach ($item in $sourceItems) {
+        $relativePath = $item.FullName.Substring($TEMP_DIR.Length + 1)
+        $destPath = Join-Path "." $relativePath
+        
+        if (!(ShouldExclude $relativePath)) {
+            if ($item.PSIsContainer) {
+                if (!(Test-Path $destPath)) {
+                    New-Item -Path $destPath -ItemType Directory -Force | Out-Null
                 }
+            } else {
+                $destDir = Split-Path $destPath -Parent
+                if (!(Test-Path $destDir)) {
+                    New-Item -Path $destDir -ItemType Directory -Force | Out-Null
+                }
+                Copy-Item -Path $item.FullName -Destination $destPath -Force
             }
         }
-        return $true
-    } catch {
-        return $false
     }
-}
-
-$copyResult = Copy-WithExclusion $TEMP_DIR "."
-if (!$copyResult) {
+    Write-Green $MSG_STEP2_RSYNC_SUCCESS
+} catch {
     Write-Red $ERR_STEP2_RSYNC_FAILED
     Remove-Item -Recurse -Force $TEMP_DIR
     exit 1
 }
-Write-Green $MSG_STEP2_RSYNC_SUCCESS
 
-# Step 3: Delete obsolete files
+# Step 3: Delete obsolete files (simulate rsync --delete)
 Write-Blue "`n$MSG_STEP3_DELETE"
 Write-Host $MSG_STEP3_DELETING_DRY_RUN
 
-# Get list of files that exist locally but not in the source
-$sourceFiles = Get-ChildItem -Path $TEMP_DIR -Recurse -File | ForEach-Object { $_.FullName.Substring($TEMP_DIR.Length + 1) }
-$localFiles = Get-ChildItem -Path "." -Recurse -File | Where-Object { $_.FullName -notlike "*\$TEMP_DIR\*" } | ForEach-Object { $_.FullName.Substring((Get-Location).Path.Length + 1) }
+# Get all local files and directories (excluding temp dir)
+$localItems = Get-ChildItem -Path "." -Recurse | Where-Object { $_.FullName -notlike "*\$TEMP_DIR\*" }
 
-foreach ($localFile in $localFiles) {
-    if ($sourceFiles -notcontains $localFile -and !(ShouldExclude $localFile)) {
-        if (Test-Path $localFile) {
-            Write-Host "$MSG_STEP3_DELETING_FILE $localFile"
-            Remove-Item -Path $localFile -Force
-        }
-    }
+# Get all source items for comparison
+$sourceItems = Get-ChildItem -Path $TEMP_DIR -Recurse
+
+# Create hashtable of source items for quick lookup (using relative paths)
+$sourceHash = @{}
+foreach ($item in $sourceItems) {
+    $relativePath = $item.FullName.Substring($TEMP_DIR.Length + 1)
+    $sourceHash[$relativePath] = $true
 }
 
-# Remove empty directories
-$localDirs = Get-ChildItem -Path "." -Recurse -Directory | Where-Object { $_.FullName -notlike "*\$TEMP_DIR\*" } | Sort-Object FullName -Descending
-foreach ($dir in $localDirs) {
-    $relativePath = $dir.FullName.Substring((Get-Location).Path.Length + 1)
-    if (!(ShouldExclude $relativePath)) {
-        $items = Get-ChildItem -Path $dir.FullName -Force
-        if ($items.Count -eq 0) {
+# Process files and directories for deletion
+foreach ($item in $localItems) {
+    $relativePath = $item.FullName.Substring((Get-Location).Path.Length + 1)
+    
+    # Skip if this item should be excluded or exists in source
+    if ((ShouldExclude $relativePath) -or $sourceHash.ContainsKey($relativePath)) {
+        continue
+    }
+    
+    if ($item.PSIsContainer) {
+        # Check if directory is empty
+        $dirItems = Get-ChildItem -Path $item.FullName -Force
+        if ($dirItems.Count -eq 0) {
             Write-Host "$MSG_STEP3_DELETING_EMPTY_DIR $relativePath"
-            Remove-Item -Path $dir.FullName -Force
+            Remove-Item -Path $item.FullName -Force
         } else {
             Write-Host "$MSG_STEP3_SKIPPING_NON_EMPTY_DIR $relativePath"
         }
+    } else {
+        Write-Host "$MSG_STEP3_DELETING_FILE $relativePath"
+        Remove-Item -Path $item.FullName -Force
     }
 }
 
