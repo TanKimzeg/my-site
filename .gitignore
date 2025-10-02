@@ -1,5 +1,5 @@
-# source files
-src/
+# build output
+dist/
 # generated types
 .astro/
 
