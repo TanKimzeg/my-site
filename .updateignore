@@ -13,6 +13,10 @@ src/i18n/translations.yaml
 # --- 用户内容 ---
 # 保护您所有的文章和页面
 src/content/
+src/pages/about.astro
+src/pages/friend.astro
+src/pages/index.astro
+src/pages/project.astro
 # 保护您放置在 public 目录下的所有文件（如图片、favicon 等）
 public/
 # 保护您自己的 README 文件
@@ -26,4 +30,5 @@ node_modules/
 
 # --- 脚本和脚本自身 ---
 frosti.update.sh
+frosti.update.ps1
 .updateignore
