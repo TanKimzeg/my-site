@@ -3,7 +3,7 @@ title: 实体机安装Ubuntu
 description: "记一次实体机安装Ubuntu Server"
 pubDate: 2025 08 17
 categories: 
-  - life
+  - tech
 tags:
   - Linux
 ---
