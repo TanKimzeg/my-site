@@ -1,5 +1,5 @@
 ---
-title: Datalab
+title: Datalab | CSAPP
 description: Datalab records
 pubDate: "2025-1-15"
 categories:

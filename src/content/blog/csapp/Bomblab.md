@@ -1,5 +1,5 @@
 ---
-title: Bomblab
+title: Bomblab | CSAPP
 description: Bomblab records
 pubDate: "2025-1-19"
 categories:

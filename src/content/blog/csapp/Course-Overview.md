@@ -1,5 +1,5 @@
 ---
-title: CS:APP课程概览
+title: CS:APP课程概览 | CSAPP
 description: "第一节课一般都是吹吹水🥱"
 pubDate: "2025-01-13"
 categories:
