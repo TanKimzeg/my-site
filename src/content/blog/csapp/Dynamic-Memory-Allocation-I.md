@@ -1,5 +1,5 @@
 ---
-title: 动态内存分配(基本概念)
+title: 动态内存分配(基本概念) | CSAPP
 description: ""
 pubDate: "Feb 7 2025"
 categories:

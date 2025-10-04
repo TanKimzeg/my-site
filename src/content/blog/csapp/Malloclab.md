@@ -1,5 +1,5 @@
 ---
-title: Malloclab
+title: Malloclab | CSAPP
 description: Malloclab records
 pubDate: "2025-2-8"
 categories:

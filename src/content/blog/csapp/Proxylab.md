@@ -1,5 +1,5 @@
 ---
-title: Proxylab
+title: Proxylab | CSAPP
 description: Proxylab records
 pubDate: "2025-2-13"
 categories:
