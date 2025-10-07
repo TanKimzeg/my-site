@@ -1,5 +1,5 @@
 ---
-title: 简介|现代JavaScript
+title: 简介 | 现代JavaScript
 description: 开始学习前端知识
 pubDate: 2025 10 01 
 categories: 

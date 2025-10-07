@@ -129,7 +129,7 @@ export default defineConfig([
 ```shell
 npm run lint
 # 或者指定文件
-npx eslint .\hello.js
+npx eslint ./src/hello.js
 ```
 
 就能看到提示信息
