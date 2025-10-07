@@ -3,7 +3,7 @@ site:
   tab: TanKimzeg # 浏览器标签栏上显示的文本
   title: TanKimzeg's Blog # 网站的标题
   description: TanKimzeg's personal blog, sharing insights on technology, programming, and life experiences.
-  language: en # 网站的语言，例如 "en" 是英文
+  language: zh # 网站的语言，例如 "en" 是英文
   favicon: /favicon.svg # 网站的图标，用于浏览器标签栏和其他地方显示
   theme: # 更多主题 https://daisyui.com/docs/themes/
     light: lemonade # 主题的浅色模式
@@ -30,17 +30,17 @@ site:
       target: _self
       subItems:
         - id: all
-          text: All blogs
+          text: All
           href: /blog
           svg: "material-symbols:ink-pen-outline-rounded"
           target: _self
         - id: tech
-          text: Tech Blogs
+          text: Tech
           href: /blog/category/tech
           svg: "material-symbols:deployed-code-outline"
           target: _self
         - id: life
-          text: Life Blogs
+          text: Life
           href: /blog/category/life
           svg: "material-symbols:earthquake-rounded"
           target: _self
