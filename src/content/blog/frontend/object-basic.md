@@ -1,5 +1,5 @@
 ---
-title: 对象(Object)基础知识|现代JavaScript
+title: 对象(Object)基础知识 | 现代JavaScript
 description: Object这一章的简单笔记
 pubDate: 2025 10 05
 categories:
