@@ -17,12 +17,12 @@ src/pages/about.astro
 src/pages/friend.astro
 src/pages/index.astro
 src/pages/project.astro
+src/pages/rss.xml.ts
 src/components/comments/Waline.astro
 # 保护您放置在 public 目录下的所有文件（如图片、favicon 等）
 public/
 # 保护您自己的 README 文件
 README.md
-docs/README.zh-CN.md
 
 # --- Git 和构建输出 ---
 .git/
