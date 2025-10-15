@@ -12,7 +12,7 @@ tags:
 
 近期在实习单位写Java后端,就想着在我的本地也搭建Java开发环境.之前下载Xbox的Minecraft需要Java执行环境,所以安装过几次JRE和JDK.JRE是Java程序的运行环境,JDK则是开发套件,包含了JRE.我清理了原来的环境,安装了最新的JDK25.
 
-对于IDE的选择,如果Java是你的主力开发语言,还是建议用JB家的IDEA,功能方便,分析能力强大.但是我只是用来轻度体验,IDEA太笨重了,就不合适.所以我决定基于VSCode搭建开发环境.简中网上的大部分教程都是IDEA的设置,关于VSCode的很少.鉴于此,为了学习Java的项目管理,顺便简单介绍一下在VSCode中搭建Java开发环境.
+对于IDE的选择,如果Java是你的主力开发语言,还是建议用JB家的IDEA,功能方便,分析能力强大.但是我只是用来轻度体验,IDEA太笨重了,就不合适.所以我决定基于VSCode搭建开发环境.简中网上的大部分教程都是IDEA的设置,关于VSCode的很少.鉴于此,我简单介绍一下在VSCode中搭建Java开发环境,顺便学习Java的项目管理.
 
 ## 工具链安装
 
@@ -31,7 +31,7 @@ Maven是Java生态的项目和包管理工具. [Maven简介](https://blog.csdn.n
 
 ## Java项目结构
 
-说实话,Java的语法非常简单,我不用专门学习,直接上手就能写了.但是项目结构需要认真了解,不然看不懂为什么这么写,导入包也会出错.
+说实话,Java的语法非常简单,我不用专门学习,直接上手就能写了.但是项目结构需要认真了解,不然不懂怎么导入包.
 
 这是普通的Java项目结构:
 [IDEA 创建的 Java 项目结构：从零到一](https://blog.csdn.net/xycxycooo/article/details/142061331)
@@ -39,11 +39,11 @@ Maven是Java生态的项目和包管理工具. [Maven简介](https://blog.csdn.n
 这是Spring网络应用的项目结构:
 https://zhuanlan.zhihu.com/p/115403195
 
-其实都是相似的,我注意到`java`下总是有一个 `com.`,[这有什么必要](https://dev59.com/mGs05IYBdhLWcg3wJ-uQ)?
+其实都是相似的,我注意到`java`下总是有一个 `com.`,[这有什么作用?](https://dev59.com/mGs05IYBdhLWcg3wJ-uQ)
 
-导入包有的也以 `org.` 开头,其实是为了避免包重名.这确实是一个解决办法.像Pypi, crate.io上面的包都不允许重名,先到先得的特点饱受诟病.我有自己的域名,所以,我写的Java程序,就会命名为 `top.tankimzeg.*`.
+导入包有的也以 `org.` 开头.其实这是为了避免包重名.这确实是一个解决办法.像Pypi, crate.io上面的包都不允许重名,包名先到先得的特点饱受诟病.我有自己的域名,所以,我写的Java程序,就会命名为 `top.tankimzeg.*`.
 
-同时,这个包下的类上添加一行:
+同时,在这个包下的类添加一行:
 
 ```java
 package top.tankimzeg.xxx;
