@@ -2,6 +2,24 @@ import type { APIRoute } from "astro";
 
 function getRobotsTxt(sitemapURL: URL) {
   return `
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-Agent: AhrefsBot
+Disallow: /
+
+User-Agent: MauiBot
+Disallow: /
+
 User-agent: *
 Allow: /
 Sitemap: ${sitemapURL.href}
