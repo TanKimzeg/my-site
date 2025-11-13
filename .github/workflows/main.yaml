@@ -47,3 +47,4 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             sudo nginx -s reload
+            /opt/url-submitter/run-url-submitter.sh
