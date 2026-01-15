@@ -6,6 +6,7 @@ categories:
   - tech
 tags:
   - llm
+  - rag
 ---
 
 ## 第一章 解锁RAG

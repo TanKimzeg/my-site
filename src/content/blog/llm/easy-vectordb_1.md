@@ -67,8 +67,6 @@ FAISS提供了数十种Index派生类，根据检索精度可分为“精确检�
 
 默认情况下，FAISS为添加到索引的向量分配自增的整数ID（从0开始），但在实际应用中，我们常需要将向量与自定义ID（如图片ID、文本ID）关联。FAISS通过IndexIDMap包装类实现这一功能。
 
-#### 3.3.1 IndexIDMap的使用方法
-
 IndexIDMap的作用是为基础索引（如IndexFlatL2）添加ID映射层，允许用户在添加向量时指定自定义ID，步骤如下：
 
 ```python
