@@ -1,5 +1,5 @@
 ---
-title: 理解大预言模型 | LLM
+title: 理解大语言模型 | LLM
 description: 从零构建大语言模型第1章:本章介绍了Transformer架构和GPT-like LLM
 pubDate: 2025 09 20
 categories:
