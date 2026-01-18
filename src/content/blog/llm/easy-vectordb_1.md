@@ -7,7 +7,7 @@ categories:
 tags:
   - rag
 ---
-[EasyVectorDB 向量数据库学习指南](https://datawhalechina.github.io/easy-vectordb/)
+[EasyVectorDB 向量数据库学习指南](https://datawhalechina.github.io/easy-vecdb/)
 
 ## FAISS核心定位与生态
 
