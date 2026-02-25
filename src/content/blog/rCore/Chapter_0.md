@@ -1,11 +1,11 @@
 ---
 title: "第零章：实验环境配置 | rCore"
 description: 本节将完成环境配置并成功运行 rCore-Tutorial 。我配置了Docker开发环境。
-pubDate: 2026 02 23 
-categories: 
+pubDate: 2026 02 23
+categories:
   - tech
 tags:
-  - rCore
+  - os
   - rust
 ---
 
