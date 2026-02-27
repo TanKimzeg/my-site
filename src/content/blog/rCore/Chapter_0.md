@@ -229,4 +229,4 @@ Caused by:
 
 ![](./attachments/Chapter_0-1771918976686.png)
 
-至此，我基本完成了开发环境的搭建任务。进一步保存工作区，然后从Docker Desktop启动容器（或`docker ps -a` `docker start <container_id>` ），即可从工作区进入开发环境。
+至此，我基本完成了开发环境的搭建任务。进一步保存工作区，然后从Docker Desktop启动容器（或`docker ps -a` 列出容器，然后 `docker start -ai <container_id>` ），即可从工作区进入开发环境。
