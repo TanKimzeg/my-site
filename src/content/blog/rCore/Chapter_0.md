@@ -83,9 +83,9 @@ ARG HOME=/root
 
 # 0. Install general tools
 ARG DEBIAN_FRONTEND=noninteractive
-RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
-RUN sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
-RUN apt-get update && \
+RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+	sed -i 's/security.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+	apt-get update && \
     apt-get install -y \
         curl \
         git \
@@ -167,8 +167,8 @@ registry = "sparse+https://rsproxy.cn/index/"
 index = "https://rsproxy.cn/crates.io-index"
 [net]
 git-fetch-with-cli = true
-EOF
-RUN rustup target add riscv64gc-unknown-none-elf && \
+EOF && \
+	rustup target add riscv64gc-unknown-none-elf && \
     cargo install cargo-binutils --vers ~0.2 && \
     rustup component add rust-src && \
     rustup component add llvm-tools-preview
