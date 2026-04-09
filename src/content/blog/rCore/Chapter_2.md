@@ -1,5 +1,5 @@
 ---
-title: "第二章：批处理系统"
+title: "第二章：批处理系统 | rCore"
 description: "本章讲解如何实现批处理系统 (Batch System)。"
 pubDate: 2026 03 10 15:10
 categories: 

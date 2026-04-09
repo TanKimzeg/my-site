@@ -90,7 +90,8 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && 
         curl \
         git \
         python3 \
-        wget
+        wget && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 1. Set up QEMU RISC-V
 # - https://learningos.github.io/rust-based-os-comp2022/0setup-devel-env.html#qemu

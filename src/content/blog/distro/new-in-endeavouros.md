@@ -66,13 +66,3 @@ Zsh支持Vim motion！那么我们初始化zsh之后，就去Github上的oh-my-z
 - [zsh autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)
 
-
-## Inspect
-终端模拟器这块，KDE自带Konsole，但是感觉没Windows的终端好用啊，也不能设置透明度啥的。想找一个更好的替代品。
-
-还有各种分屏快捷键，都得配好，才能用得顺手。中文输入法也还没搞，下次再说吧！
-
-上次试用了NixOS,构建速度慢，网络问题多，软件包少，有的得自己打包，也就是要自己编写nix代码厘清依赖关系。上次发现xfce的系统代理问题后我想切换成GNOME，结果`nixos build`就一直失败，实在太折腾了。EndeavourOS给我的体验很不错。我不想把精力花在这些琐事上，还是Arch系的发行版省心。
-
-前段时间我萌生了自己配一台台式电脑的念头，然后装上纯Linux操作系统来作为开发主力机。所以我开始关注硬件市场，学着去了解主板、CPU、显卡，已经有了自己一套“高性价比”配置方案🤓，跃跃欲试了。
-都用Linux了，内核资源占用少，软件轻量，自然无需高配置。CPU的话5700X看起来不错。搞深度学习只好用皮衣黄的东西。不想买矿卡又买不起40系，只好先弄一块亮机卡，偶尔还能玩玩游戏。其实这个想法有点冲动了，买了没地方放。刚好这几个月以来内存条和机械硬盘都大涨，只能再忍一手了。我估计明年局势明朗，到时候如果能拿下，我肯定把装机过程详细记录一下，敬请期待哦！
