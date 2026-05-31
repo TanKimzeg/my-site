@@ -6,6 +6,7 @@ categories:
   - tech
 tags:
   - rust
+image: /llm/DeepSeek.jpg
 ---
 
 之前我基于Rust tauri框架开发了[Copylot：划词AI翻译助手](https://tankimzeg.top/blog/rust/copylot/)。为了调用DeepSeek API，我在[crates.io](https://crates.io)找到了一个模仿OpenAI的SDK。但疏于维护，缺少一些现行标准的实现，比如我我无法控制思考模式。我随后查阅了[DeepSeek API文档](https://api-docs.deepseek.com/zh-cn/api/create-chat-completion)，发现有不少字段都缺乏支持。尝试向他们提交PR，不出意料没有回音。那么社区有没有其他方案呢？最近营销起来的[DeepSeek-TUI](https://github.com/Hmbown/DeepSeek-TUI/blob/eeccf7de6c3b1c8becce367cfcba6ce4d1fbd057/crates/tui/src/client/chat.rs#L1667)的做法也主要是从返回的JSON响应中提取字段，做一些简单的结构化封装。
