@@ -1,0 +1,6 @@
+allowBuilds:
+  "@parcel/watcher": true
+  esbuild: true
+  sharp: true
+  swup: true
+  unrs-resolver: true
