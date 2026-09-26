@@ -19,10 +19,14 @@ import RepositoryCard from "@/components/mdx/RepositoryCard.astro";
       <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
         <Icon name="lucide:star" class="w-6 h-6 text-primary" />
         <!-- <span>Featured Projects</span> -->
-         <span>GitHub Status</span>
+        <span>GitHub Status</span>
       </h2>
 
-      <GitHubStats username="TanKimzeg" showLanguages={false} showCommitGraph={true} />
+      <GitHubStats
+        username="TanKimzeg"
+        showLanguages={false}
+        showCommitGraph={true}
+      />
       <!--<GitHubStats username="EveSunMaple" repositoryName="Frosti" showLanguages={true} showContributors={true} /> -->
     </section>
 
@@ -34,24 +38,29 @@ import RepositoryCard from "@/components/mdx/RepositoryCard.astro";
       </h2>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <RepositoryCard repo="TanKimzeg/compiler" 
-          image="https://raw.githubusercontent.com/TanKimzeg/compiler/main/assets/passed.png" 
-          isPinned={true} 
+        <RepositoryCard
+          repo="TanKimzeg/compiler"
+          image="https://raw.githubusercontent.com/TanKimzeg/compiler/main/assets/passed.png"
+          isPinned={true}
         />
-        <RepositoryCard repo="TanKimzeg/PP4mat"
+        <RepositoryCard
+          repo="TanKimzeg/PP4mat"
           image="https://raw.githubusercontent.com/TanKimzeg/PP4mat/main/doc/preview.png"
         />
         <RepositoryCard repo="TanKimzeg/copylot" />
         <RepositoryCard repo="TanKimzeg/deepseek-sdk" />
-        <RepositoryCard repo="TanKimzeg/uno" 
-          image="https://raw.githubusercontent.com/TanKimzeg/uno/main/.github/image.png" 
+        <RepositoryCard
+          repo="TanKimzeg/uno"
+          image="https://raw.githubusercontent.com/TanKimzeg/uno/main/.github/image.png"
         />
+        <RepositoryCard repo="TanKimzeg/CS-APP" />
+        <RepositoryCard repo="TanKimzeg/hylee-machine-learning" />
+        <RepositoryCard repo="TanKimzeg/BACF" />
         <RepositoryCard repo="TanKimzeg/blog-articles-rag" />
-        <RepositoryCard repo="TanKimzeg/ctf-agent" />
         <RepositoryCard repo="TanKimzeg/JournalEditorialSystem" />
         <RepositoryCard repo="TanKimzeg/url-submitter" />
         <RepositoryCard repo="TanKimzeg/DES" />
-        <RepositoryCard repo="TanKimzeg/CS-APP" />
+        <RepositoryCard repo="TanKimzeg/ctf-agent" />
       </div>
 
       <div class="flex justify-center mt-10">
@@ -87,7 +96,7 @@ import RepositoryCard from "@/components/mdx/RepositoryCard.astro";
                 project: "Frosti",
                 description: "Contributed to bug fixes",
                 url: "https://github.com/EveSunMaple/Frosti",
-              }
+              },
             ].map((contrib) => (
               <li class="flex items-start gap-4">
                 <div class="flex-shrink-0 bg-base-300 p-2 rounded-full">
