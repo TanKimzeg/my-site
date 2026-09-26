@@ -20,8 +20,13 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Install dependencies
-        run: npm i -g pnpm && pnpm i
+        run: pnpm i
 
       - name: Build the static site
         run: |
