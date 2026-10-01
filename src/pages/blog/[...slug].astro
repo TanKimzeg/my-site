@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection, render } from "astro:content";
 import License from "@components/widgets/License.astro";
 import PostFilter from "@components/widgets/PostFilter.astro";
 import PostInfo from "@components/widgets/PostInfo.astro";
+import Waline from "@/components/comments/Waline.astro";
 import { DATE_FORMAT } from "@config";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import dayjs from "@utils/dayjs";
@@ -72,5 +73,10 @@ const url = new URL(`/blog/${blog.id}`, Astro.site ?? Astro.url.origin);
         />
       </div>
     </div>
+      
+      <!-- Add the comment section -->
+      <section class="comments">
+        <Waline serverURL= "https://waline.tankimzeg.top" />
+      </section>
   </MainCard>
 </BaseLayout>
