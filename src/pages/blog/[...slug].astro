@@ -1,30 +1,38 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import License from "@components/widgets/License.astro";
-import PostInfo from "@components/widgets/PostInfo.astro";
 import PostFilter from "@components/widgets/PostFilter.astro";
-import { type CollectionEntry, getCollection } from "astro:content";
-import dayjs from "@utils/dayjs";
+import PostInfo from "@components/widgets/PostInfo.astro";
 import { DATE_FORMAT } from "@config";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import dayjs from "@utils/dayjs";
 import MainCard from "@/components/MainCard.astro";
-import Waline from "@components/comments/Waline.astro";
+import "katex/dist/katex.min.css";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  return posts.map((blog: { slug: any }) => ({
-    params: { slug: blog.slug },
+
+  const filteredPosts = import.meta.env.PROD
+    ? posts.filter((post: CollectionEntry<"blog">) => !post.data.draft)
+    : posts;
+
+  return filteredPosts.map((blog: CollectionEntry<"blog">) => ({
+    params: { slug: blog.id },
     props: { blog },
   }));
 }
+
 interface Props {
   blog: CollectionEntry<"blog">;
 }
 
 const { blog } = Astro.props;
-const { Content, remarkPluginFrontmatter, headings } = await blog.render();
-const displayDate = blog.data.pubDate ? dayjs(blog.data.pubDate).format(DATE_FORMAT) : "";
-const image = new URL(`/og/${blog.slug}.png`, Astro.site).toString();
-const url = new URL(`/blog/${blog.slug}`, Astro.url.origin);
+const { Content, remarkPluginFrontmatter, headings } = await render(blog);
+const displayDate = blog.data.pubDate
+  ? dayjs(blog.data.pubDate).format(DATE_FORMAT)
+  : "";
+const image = new URL(`/og/${blog.id}.png`, Astro.site).toString();
+const url = new URL(`/blog/${blog.id}`, Astro.site ?? Astro.url.origin);
 ---
 
 <BaseLayout
@@ -33,6 +41,8 @@ const url = new URL(`/blog/${blog.slug}`, Astro.url.origin);
   image={image}
   headings={headings}
   showTOC={true}
+  ogType="article"
+  pubDate={blog.data.pubDate}
 >
   <MainCard title={blog.data.title} description={blog.data.description} image={blog.data.image} infoIcon="lucide:info">
     <PostInfo
@@ -61,11 +71,6 @@ const url = new URL(`/blog/${blog.slug}`, Astro.url.origin);
           time={remarkPluginFrontmatter.readingTime}
         />
       </div>
-
-      <!-- Add the comment section -->
-      <section class="comments">
-        <Waline serverURL= "https://waline.tankimzeg.top" />
-      </section>
     </div>
   </MainCard>
 </BaseLayout>

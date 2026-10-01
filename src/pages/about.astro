@@ -15,20 +15,32 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
   >
     <div class="space-y-10 mb-8">
       <!-- Profile Section -->
-      <section class="flex flex-col md:flex-row gap-8 items-center md:items-start">
+      <section
+        class="flex flex-col md:flex-row gap-8 items-center md:items-start"
+      >
         <div class="avatar">
           <div
             class="w-32 h-32 md:w-40 md:h-40 rounded-xl ring ring-primary ring-offset-base-100 ring-offset-2 overflow-hidden"
           >
-            <img src="https://github.com/TanKimzeg.png" alt="TanKimzeg" width="160" height="160" loading="eager" />
+            <img
+              src="https://github.com/TanKimzeg.png"
+              alt="TanKimzeg"
+              width="160"
+              height="160"
+              loading="eager"
+            />
           </div>
         </div>
 
         <div class="flex-1 text-center md:text-left">
           <h1 class="text-3xl md:text-4xl font-bold mb-2">TanKimzeg</h1>
-          <p class="text-xl text-base-content/80 mb-4">Developer & CS Enthusiast</p>
+          <p class="text-xl text-base-content/80 mb-4">
+            Developer & CS Enthusiast
+          </p>
 
-          <div class="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
+          <div
+            class="flex flex-wrap gap-3 justify-center md:justify-start mb-6"
+          >
             <a
               href="https://github.com/TanKimzeg"
               target="_blank"
@@ -47,14 +59,18 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
               <Icon name="ri:zhihu-line" class="w-4 h-4" />
               <span>Zhihu</span>
             </a>
-            <a href="mailto:tankimzeg@qq.com" class="btn btn-sm btn-outline gap-2">
+            <a
+              href="mailto:tankimzeg@qq.com"
+              class="btn btn-sm btn-outline gap-2"
+            >
               <Icon name="lucide:mail" class="w-4 h-4" />
               <span>Email</span>
             </a>
           </div>
 
           <p class="text-base-content/80">
-            Hello! I'm TanKimzeg, a passionate student focused on computer science. 
+            Hello! I'm TanKimzeg, a passionate student focused on computer
+            science.
           </p>
         </div>
       </section>
@@ -62,18 +78,20 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
       <!-- Self Introduction -->
       <section>
         <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
-            <Icon name="lucide:palette" class="w-6 h-6 text-primary" />
+          <Icon name="lucide:palette" class="w-6 h-6 text-primary" />
           <span>Self Introduction</span>
         </h2>
         <div class="card bg-base-200 p-6">
           <p>
-          我是Tan Kimzeg, 这串看起来奇怪单词是我姓名的台罗拼音. 我喜欢计算机科学, 这不是我的专业,但也许在平行世界里是.
+            我是Tan Kimzeg, 这串看起来奇怪单词是我姓名的台罗拼音.
+            我喜欢计算机科学, 这不是我的专业,但也许在平行世界里是.
           </p>
           <br />
           <p>
-          我确实是一个与众不同的人, 也有许多故事, 但不知道从何说起. 语言是扁平的, 
-          不足以描述矛盾的个体. 在相对匿名的网络世界里, 我倒是希望表达我的思想, 但每次写出来, 都很难让自己满意.
-          所以呢, 这里的内容目前以技术为主, 也许以后会有更多的真情流露.
+            我确实是一个与众不同的人, 也有许多故事, 但不知道从何说起.
+            语言是扁平的, 不足以描述矛盾的个体. 在相对匿名的网络世界里,
+            我倒是希望表达我的思想, 但每次写出来, 都很难让自己满意. 所以呢,
+            这里的内容目前以技术为主, 也许以后会有更多的真情流露.
           </p>
           <br />
           <li>INFP 5w4</li>
@@ -88,7 +106,11 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
           <span>GitHub Statistics</span>
         </h2>
 
-        <GitHubStats username="TanKimzeg" showLanguages={false} showCommitGraph={true} />
+        <GitHubStats
+          username="TanKimzeg"
+          showLanguages={false}
+          showCommitGraph={true}
+        />
       </section>
 
       <!-- Tech Stack -->
@@ -98,26 +120,76 @@ import GitHubStats from "@/components/mdx/GitHubStats.astro";
           <span>Tech Stack</span>
         </h2>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div
+          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+        >
           {
             [
               // { name: "Astro", icon: "simple-icons:astro", color: "oklch(0.5 0.2 300)" },
-              { name: "Python", icon: "simple-icons:python", color: "oklch(0.7 0.2 250)" },
-              { name: "Rust", icon: "simple-icons:rust", color: "oklch(0.6 0.05 0)" },
-              { name: "Linux", icon: "simple-icons:linux", color: "oklch(0.5 0.05 0)" },
-              { name: "Git", icon: "simple-icons:git", color: "oklch(0.7 0.2 30)" },
-              { name: "C", icon: "simple-icons:c", color: "oklch(0.7 0.2 250)" },
-              { name: "Pytorch", icon: "simple-icons:pytorch", color: "oklch(0.7 0.2 25)" },
-              { name: "Java", icon: "simple-icons:openjdk", color: "oklch(0.7 0.2 20)" },
-              { name: "MySQL", icon: "simple-icons:mysql", color: "oklch(0.6 0.2 200)" },
-              { name: "Docker", icon: "simple-icons:docker", color: "oklch(0.6 0.2 220)" },
-              { name: "HTML5", icon: "simple-icons:html5", color: "oklch(0.7 0.2 30)" },
-              { name: "TypeScript", icon: "simple-icons:typescript", color: "oklch(0.6 0.2 250)" },
+              {
+                name: "Python",
+                icon: "simple-icons:python",
+                color: "oklch(0.7 0.2 250)",
+              },
+              {
+                name: "Rust",
+                icon: "simple-icons:rust",
+                color: "oklch(0.6 0.05 0)",
+              },
+              {
+                name: "Linux",
+                icon: "simple-icons:linux",
+                color: "oklch(0.5 0.05 0)",
+              },
+              {
+                name: "Git",
+                icon: "simple-icons:git",
+                color: "oklch(0.7 0.2 30)",
+              },
+              {
+                name: "C",
+                icon: "simple-icons:c",
+                color: "oklch(0.7 0.2 250)",
+              },
+              {
+                name: "Pytorch",
+                icon: "simple-icons:pytorch",
+                color: "oklch(0.7 0.2 25)",
+              },
+              {
+                name: "Java",
+                icon: "simple-icons:openjdk",
+                color: "oklch(0.7 0.2 20)",
+              },
+              {
+                name: "MySQL",
+                icon: "simple-icons:mysql",
+                color: "oklch(0.6 0.2 200)",
+              },
+              {
+                name: "Docker",
+                icon: "simple-icons:docker",
+                color: "oklch(0.6 0.2 220)",
+              },
+              {
+                name: "HTML5",
+                icon: "simple-icons:html5",
+                color: "oklch(0.7 0.2 30)",
+              },
+              {
+                name: "TypeScript",
+                icon: "simple-icons:typescript",
+                color: "oklch(0.6 0.2 250)",
+              },
               // { name: "React", icon: "simple-icons:react", color: "oklch(0.7 0.2 200)" },
               // { name: "Node.js", icon: "simple-icons:nodedotjs", color: "oklch(0.7 0.2 140)" },
               // { name: "TailwindCSS", icon: "simple-icons:tailwindcss", color: "oklch(0.6 0.2 220)" },
               // { name: "CSS3", icon: "simple-icons:css3", color: "oklch(0.7 0.2 220)" },
-              { name: "C++", icon: "simple-icons:cplusplus", color: "oklch(0.6 0.2 240)" },
+              {
+                name: "C++",
+                icon: "simple-icons:cplusplus",
+                color: "oklch(0.6 0.2 240)",
+              },
               // { name: "C#", icon: "simple-icons:csharp", color: "oklch(0.6 0.2 160)" },
             ].map((tech) => (
               <div class="flex flex-col items-center justify-center p-4 bg-base-200 rounded-lg hover:bg-base-300 transition-colors">

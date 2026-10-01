@@ -1,5 +1,6 @@
 import type { CollectionEntry } from "astro:content";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
+import type { Post } from "@interfaces/data";
 
 /**
  * 获取所有博客文章并根据环境过滤草稿
@@ -19,7 +20,9 @@ export async function getAllPosts(): Promise<CollectionEntry<"blog">[]> {
  * @param posts 需要排序的文章
  * @returns 排序后的文章
  */
-export function sortPostsByDate(posts: CollectionEntry<"blog">[]): CollectionEntry<"blog">[] {
+export function sortPostsByDate(
+  posts: CollectionEntry<"blog">[],
+): CollectionEntry<"blog">[] {
   return [...posts].sort(
     (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
       new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
@@ -31,9 +34,15 @@ export function sortPostsByDate(posts: CollectionEntry<"blog">[]): CollectionEnt
  * @param posts 需要排序的文章
  * @returns 排序后的文章 (置顶文章优先，然后是按日期排序)
  */
-export function sortPostsByPinAndDate(posts: CollectionEntry<"blog">[]): CollectionEntry<"blog">[] {
-  const topPosts = posts.filter((blog: CollectionEntry<"blog">) => blog.data.badge === "Pin");
-  const otherPosts = posts.filter((blog: CollectionEntry<"blog">) => blog.data.badge !== "Pin");
+export function sortPostsByPinAndDate(
+  posts: CollectionEntry<"blog">[],
+): CollectionEntry<"blog">[] {
+  const topPosts = posts.filter(
+    (blog: CollectionEntry<"blog">) => blog.data.badge === "Pin",
+  );
+  const otherPosts = posts.filter(
+    (blog: CollectionEntry<"blog">) => blog.data.badge !== "Pin",
+  );
 
   const sortedTopPosts = sortPostsByDate(topPosts);
   const sortedOtherPosts = sortPostsByDate(otherPosts);
@@ -46,7 +55,9 @@ export function sortPostsByPinAndDate(posts: CollectionEntry<"blog">[]): Collect
  * @param posts 文章集合
  * @returns 标签映射 (标签名 -> 计数)
  */
-export function getTagsWithCount(posts: CollectionEntry<"blog">[]): Map<string, number> {
+export function getTagsWithCount(
+  posts: CollectionEntry<"blog">[],
+): Map<string, number> {
   const tagMap = new Map<string, number>();
 
   posts.forEach((post: CollectionEntry<"blog">) => {
@@ -65,7 +76,9 @@ export function getTagsWithCount(posts: CollectionEntry<"blog">[]): Map<string, 
  * @param posts 文章集合
  * @returns 分类映射 (分类名 -> 文章数组)
  */
-export function getCategoriesWithPosts(posts: CollectionEntry<"blog">[]): Map<string, CollectionEntry<"blog">[]> {
+export function getCategoriesWithPosts(
+  posts: CollectionEntry<"blog">[],
+): Map<string, CollectionEntry<"blog">[]> {
   const categoryMap = new Map<string, CollectionEntry<"blog">[]>();
 
   posts.forEach((post: CollectionEntry<"blog">) => {
@@ -87,7 +100,9 @@ export function getCategoriesWithPosts(posts: CollectionEntry<"blog">[]): Map<st
  * @param posts 文章集合
  * @returns 嵌套映射 (年份 -> (月份 -> 文章数组))
  */
-export function getPostsByYearAndMonth(posts: CollectionEntry<"blog">[]): Map<string, Map<string, CollectionEntry<"blog">[]>> {
+export function getPostsByYearAndMonth(
+  posts: CollectionEntry<"blog">[],
+): Map<string, Map<string, CollectionEntry<"blog">[]>> {
   const postsByDate = new Map<string, Map<string, CollectionEntry<"blog">[]>>();
 
   posts.forEach((post: CollectionEntry<"blog">) => {
@@ -119,23 +134,28 @@ export function generatePageLinks(totalPages: number): {
   active: string[];
   hidden: string[];
 } {
+  if (
+    !Number.isFinite(totalPages) ||
+    !Number.isInteger(totalPages) ||
+    totalPages < 0
+  ) {
+    throw new RangeError("totalPages must be a non-negative integer");
+  }
+
   const pages = {
     active: [] as string[],
     hidden: [] as string[],
   };
 
   if (totalPages > 3) {
-    pages.active.push("1");
-    pages.active.push("...");
-    pages.active.push(totalPages.toString());
+    pages.active.push("1", "...", totalPages.toString());
     for (let i = 2; i <= totalPages - 1; i++) {
       pages.hidden.push(i.toString());
     }
-  }
-  else {
-    for (let i = 1; i <= totalPages; i++) {
-      pages.active.push(i.toString());
-    }
+  } else {
+    pages.active.push(
+      ...Array.from({ length: totalPages }, (_, i) => (i + 1).toString()),
+    );
   }
 
   return pages;
@@ -146,17 +166,27 @@ export function generatePageLinks(totalPages: number): {
  * @param posts 文章集合
  * @returns 带有统计信息的文章集合
  */
-export async function getPostsWithStats(posts: CollectionEntry<"blog">[]): Promise<any[]> {
+export async function getPostsWithStats(
+  posts: CollectionEntry<"blog">[],
+): Promise<Post[]> {
   return Promise.all(
     posts.map(async (blog: CollectionEntry<"blog">) => {
-      const { remarkPluginFrontmatter } = await blog.render();
-      return {
-        ...blog,
-        remarkPluginFrontmatter: {
-          readingTime: remarkPluginFrontmatter.readingTime,
-          totalCharCount: remarkPluginFrontmatter.totalCharCount,
-        },
-      };
+      try {
+        const { remarkPluginFrontmatter } = await render(blog);
+        return {
+          ...blog,
+          remarkPluginFrontmatter: {
+            readingTime: remarkPluginFrontmatter.readingTime,
+            totalCharCount: remarkPluginFrontmatter.totalCharCount,
+          },
+        } as Post;
+      } catch (err) {
+        console.error("[blog] failed to render post stats", {
+          slug: blog.id,
+          err,
+        });
+        throw new Error(`Failed to render blog stats for slug: ${blog.id}`);
+      }
     }),
   );
 }
@@ -169,14 +199,10 @@ export async function getPostsWithStats(posts: CollectionEntry<"blog">[]): Promi
  */
 export function getTagColorClass(count: number, max: number): string {
   const ratio = count / max;
-  if (ratio > 0.8)
-    return "tag-high";
-  if (ratio > 0.6)
-    return "tag-medium-high";
-  if (ratio > 0.4)
-    return "tag-medium";
-  if (ratio > 0.2)
-    return "tag-medium-low";
+  if (ratio > 0.8) return "tag-high";
+  if (ratio > 0.6) return "tag-medium-high";
+  if (ratio > 0.4) return "tag-medium";
+  if (ratio > 0.2) return "tag-medium-low";
   return "tag-low";
 }
 
@@ -187,7 +213,11 @@ export function getTagColorClass(count: number, max: number): string {
  * @param min 最小计数
  * @returns 字体大小 (rem)
  */
-export function getTagFontSize(count: number, max: number, min: number): number {
+export function getTagFontSize(
+  count: number,
+  max: number,
+  min: number,
+): number {
   // 将计数值规范化到 0-1 之间
   const normalized = (count - min) / (max - min || 1);
   // 映射到 0.9rem 到 2rem 之间的字体大小

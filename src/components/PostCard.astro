@@ -1,13 +1,13 @@
 ---
 import { Image } from "astro:assets";
-import dayjs from "@utils/dayjs";
 import { DATE_FORMAT } from "@config";
 import type { PostData } from "@interfaces/data";
-import Heading from "./widgets/Heading.astro";
-import PostInfo from "./widgets/PostInfo.astro";
-import PostFilter from "./widgets/PostFilter.astro";
-import Card from "./temple/Card.astro";
+import dayjs from "@utils/dayjs";
 import { Icon } from "astro-icon/components";
+import Card from "./temple/Card.astro";
+import Heading from "./widgets/Heading.astro";
+import PostFilter from "./widgets/PostFilter.astro";
+import PostInfo from "./widgets/PostInfo.astro";
 
 const {
   title,
@@ -19,6 +19,7 @@ const {
   tags = [],
   word = "0",
   time = "0",
+  priority = false,
   url = decodeURIComponent(Astro.url.toString()),
 } = Astro.props as PostData;
 
@@ -53,7 +54,7 @@ const displayDate = pubDate ? dayjs(pubDate).format(DATE_FORMAT) : "";
             width={800}
             height={400}
             format="webp"
-            loading="eager"
+            loading={priority ? "eager" : "lazy"}
             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           />
         </a>
